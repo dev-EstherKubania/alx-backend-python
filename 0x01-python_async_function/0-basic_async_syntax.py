@@ -11,7 +11,7 @@ async def wait_random(max_delay: int = 10) -> float:
     """
     Asynchronous coroutine that waits for a random delay 
     Args:
-        max_delay (int): The maximum delay to wait for (default is 10).
+        max_delay (int): The maximum delay to wait.
     Returns:
         float: The random delay waited.
     """
