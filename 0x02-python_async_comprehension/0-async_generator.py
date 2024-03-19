@@ -2,24 +2,19 @@
 """
 Module to demonstrate asyncio Tasks in Python
 """
+import random
 import asyncio
-from typing import Coroutine
-
-wait_random = __import__('0-basic_async_syntax').wait_random
+from typing import Generator
 
 
-def task_wait_random(max_delay: int) -> asyncio.Task:
+async def async_generator() -> Generator[float, None, None]:
     """
-    Regular function that takes an integer max_delay and returns an asyncio
-
-    Args:
-        max_delay (int): The maximum delay for wait_random.
-
+    async_generator - function to loop 10 times
+    Arguments:
+        no arguments
     Returns:
-        asyncio.Task: An asyncio.Task object for the wait_random coroutine.
+        nothing
     """
-    # Calling wait_random to create a coroutine
-    coro: Coroutine = wait_random(max_delay)
-    # Creating an asyncio.Task object for the coroutine
-    task: asyncio.Task = asyncio.create_task(coro)
-    return task
+    for i in range(10):
+        await asyncio.sleep(1)
+        yield random.uniform(0, 10)
