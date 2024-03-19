@@ -1,27 +1,20 @@
 #!/usr/bin/env python3
 """
-Module to demonstrate concurrent coroutines in Python
+Module to measure the runtime of async_comprehension and wait_n coroutines execution
 """
+import time
 import asyncio
-from typing import List
-
-wait_random = __import__('0-basic_async_syntax').wait_random
+wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
-async def wait_n(n: int, max_delay: int) -> List[float]:
-    """
-    Asynchronous coroutine that spawns wait_random n times with the specified
-    max_delay and returns the list of all the delays.
-
+def measure_time(n: int, max_delay: int) -> float:
+    """Measure the total execution time of a function
     Args:
-        n (int): The number of times to spawn wait_random.
-        max_delay (int): The maximum delay for each wait_random.
-
-    Returns:
-        List[float]: The list of all the delays in ascending order.
+        n: the number of coroutines to launch
+        max_delay: the maximum amount of time to wait for each coroutine
+    Returns: elapsed time in seconds
     """
-    delays = []
-    for _ in range(n):
-        delay = await wait_random(max_delay)
-        delays.append(delay)
-    return sorted(delays)
+    start = perf_counter()
+    asyncio.run(wait_n(n, max_delay))
+    elapsed = perf_counter() - start
+    return elapsed / n
